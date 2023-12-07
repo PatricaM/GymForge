@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Forge Gym</string>
+    <string name="btnlogin">Get Started</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu">Barra de navegacion</string>
+    <string name="title_activity_coach">CoachActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="app_logo">app logo</string>
+    <string name="customer_icon">Customer icon</string>
+    <string name="customers">Customers</string>
+    <string name="group">Group</string>
+    <string name="first_name">First Name</string>
+    <string name="previous">Previous</string>
+    <string name="title_activity_trainer">TrainerActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
+</resources>

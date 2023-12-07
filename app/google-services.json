@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "641617219262",
+    "project_id": "gymforge-7d78d",
+    "storage_bucket": "gymforge-7d78d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641617219262:android:c40cd272666b98e2ae18ef",
+        "android_client_info": {
+          "package_name": "com.example.gymforge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACOO4lqPNBhgY3AqR7UI_-JNfFbwhCS-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
