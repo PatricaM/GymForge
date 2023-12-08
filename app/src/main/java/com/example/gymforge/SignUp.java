@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +32,8 @@ public class SignUp extends AppCompatActivity {
 
 
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText signupEmail, signupPass, signupName,signupPhone;
     private Button signupbtn;
     boolean passVisible;
@@ -97,17 +99,28 @@ public class SignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()){
+                                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                DocumentReference userRef = db.collection("Users").document(userId);
 
-                                String uid=task.getResult().getUser().getUid();
+                                Map<String, Object> userData = new HashMap<>();
+                                userData.put("name", signupName.getText().toString());
+                                userData.put("phone", signupPhone.getText().toString());
+                                userData.put("email", signupEmail.getText().toString());
+                                userData.put("role", "usuario_normal");
 
-                                Users user=new Users(uid,signupName.getText().toString(),signupPhone.getText().toString(),signupEmail.getText().toString(),signupPass.getText().toString(),0);
-
-                                firebaseDatabase.getReference().child("users").child(uid).setValue(user);
-
-                                Intent in=new Intent(SignUp.this,NavBotDialog.class);
-                                startActivity(in);
+                                userRef.set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Intent in=new Intent(SignUp.this,NavBotDialog.class);
+                                        startActivity(in);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Error al guardar información del usuario", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
-
                             else {
                                 Toast.makeText(getApplicationContext(),task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
                             }

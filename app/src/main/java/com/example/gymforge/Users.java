@@ -68,4 +68,6 @@ public class Users {
         Password = password;
     }
 
+    public static class DietasAdapter {
+    }
 }

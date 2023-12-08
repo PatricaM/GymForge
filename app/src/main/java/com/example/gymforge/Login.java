@@ -26,11 +26,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity {
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     private EditText loginEmail, loginPass;
     private Button loginbtn;
     boolean passVisible;
@@ -85,29 +88,9 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
 
-                                String uid= task.getResult().getUser().getUid();
+                                checkUserRole();
 
-                                firebaseDatabase.getReference().child("Users").child(uid).child("usertype").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        int usertype=snapshot.getValue(Integer.class);
-                                        if (usertype == 0){
-                                            Intent in=new Intent(Login.this,NavBotDialog.class);
-                                            startActivity(in);
-                                        }
-                                        if (usertype == 1){
-                                            Intent in=new Intent(Login.this,CoachMainActivity.class);
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
-                                Intent in = new Intent(Login.this,NavBotDialog.class);
-                                startActivity(in);
                             }
                             else {
                                 Toast.makeText(getApplicationContext(),task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
@@ -118,6 +101,45 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void checkUserRole() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference userRef = db.collection("Users").document(userId);
+
+        userRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            String userRole = documentSnapshot.getString("role");
+
+                            // Verificar el rol y permitir o denegar acceso
+                            if ("admin".equals(userRole)) {
+                                Intent in = new Intent(Login.this,DietasActivity.class);
+                                startActivity(in);
+                                // El usuario tiene permisos de administrador
+                            }else
+                            if ("couch".equals(userRole)) {
+                                Intent in = new Intent(Login.this,Add_Diets.class);
+                                startActivity(in);
+                                // El usuario tiene permisos de administrador
+                            }
+                            else {
+                                Intent in = new Intent(Login.this,NavBotDialog.class);
+                                startActivity(in);
+                                // El usuario no tiene permisos de administrador
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Manejar errores al obtener el rol
+                        Toast.makeText(getApplicationContext(), "Error al obtener el rol del usuario", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public void Forgot(View view){

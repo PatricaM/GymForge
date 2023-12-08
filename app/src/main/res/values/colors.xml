@@ -3,6 +3,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#232323</color>
+    <color name="gray2">#505050</color>
     <color name="mostaza">#FFC107</color>
     <color name="colorPrimary">#6690DA</color>
+    <color name="azul">#6690DA</color>
+    <color name="azul2">#0F5EEA</color>
+    <color name="rojo">#CC0202</color>
+    <color name="transparente">#00000000</color>
+
 </resources>

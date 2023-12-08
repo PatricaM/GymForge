@@ -15,23 +15,18 @@
         android:theme="@style/Theme.GymForge"
         tools:targetApi="34">
         <activity
-            android:name=".CoachMainActivity"
+            android:name=".UsuariosActivity"
+            android:exported="false" />
+        <activity android:name=".Desayuno" />
+        <activity
+            android:name=".DietasActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.GymForge" />
+            android:name=".Add_Diets"
+            android:exported="false" />
         <activity
-            android:name=".TrainerActivity"
-            android:exported="false"
-            android:label="@string/title_activity_trainer"
-            android:theme="@style/Theme.GymForge" />
-        <activity
-            android:name=".CoachActivity"
-            android:exported="false"
-            android:label="@string/title_activity_coach"
-            android:theme="@style/Theme.GymForge" />
+            android:name=".CoachMainActivity"
+            android:exported="false" />
         <activity
             android:name=".AdminActivity"
             android:exported="false" />

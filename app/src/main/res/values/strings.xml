@@ -10,6 +10,15 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="profile_pick">profilePick</string>
+    <string name="edit_photo_icon">editPhotoIcon</string>
+    <string name="name">Name</string>
+    <string name="instructor">Instructor: %1$s</string>
+    <string name="description">Description</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_group">Add Group</string>
     <string name="next">Next</string>
     <string name="app_logo">app logo</string>
     <string name="customer_icon">Customer icon</string>
